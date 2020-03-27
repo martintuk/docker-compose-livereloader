@@ -58,21 +58,11 @@ class Reloader(object):
             2. Otherwise it attempts to derive the directory from mounted directories on the container
         """
         dirs = environ.get("RELOAD_DIR", None)
-        if dirs is not None:
+        if dirs:
             dirs = [x.strip() for x in dirs.split(",")]
             return dirs
-
-        container = self.client.containers.list(filters={"name": "livereloader"})[0]
-
-        dir_to_watch = None
-        for mount in container.attrs["Mounts"]:
-            if (
-                "/var/run/docker.sock" not in mount["Destination"]
-                and "/reloader" not in mount["Destination"]
-            ):
-                dir_to_watch = mount["Destination"]
-
-        return [dir_to_watch] if dir_to_watch else None
+        else:
+            return None
 
     def get_target_containers(self):
         """

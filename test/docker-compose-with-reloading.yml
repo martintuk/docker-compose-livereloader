@@ -41,14 +41,13 @@ services:
 
   live-reloader:
     image: stratosgear/livereloading
-    container_name: livereloader
     privileged: true
     environment:
       - RELOAD_DELAY=2 # seconds
-      - RELOAD_CONTAINER=named-service
-      # - RELOAD_DIRS=/code
+      # - RELOAD_CONTAINER=named-service
+      - RELOAD_DIR=/code
       - RESTART_TIMEOUT=1
       - RELOAD_LABEL=live-reload
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      # - ".:/code"
+      - ".:/code"

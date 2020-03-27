@@ -66,10 +66,13 @@ services:
 Note that version 3 is only indicative, you can use your own docker compose version
 number.
 
-The only required parameters in the above docker-compose service are either the
-`RELOAD_CONTAINER` or the `RELOAD_LABEL` variables which give instructions of which
-containers are ought to be reloaded. The other variables can be ommited. (More details
-in the Configuration section below)
+The only required parameters in the above docker-compose service are:
+
+* the `RELOAD_DIR` to know which directories to watch
+* either the `RELOAD_CONTAINER` or the `RELOAD_LABEL` variables which give instructions
+  of which containers are ought to be reloaded. 
+  
+The other variables can be ommited. (More details in the Configuration section below)
 
 In order for the reloading service to watch for changes you have to mount your source
 code directory to a directory in the container. If no `RELOAD_DIR` variable was set,
@@ -169,10 +172,8 @@ docker-compoe service. Here is a list of the available configuration variables:
 - **RESTART_TIMEOUT**: The timeout period in seconds to wait for the container to
   restart. (Requied: False, Default: 10, same as the default timeout of Docker)
 - **RELOAD_DIR**: The directory or directories to monitor for changes (multiple
-  directories can be supplied, comma-separated). This can also be automatically derived
-  from the mount directory in the livereloader service but in case you want to
-  explicitly set it, this environment variable can be used.  (Required: False, Default:
-  \<Mount Directory in Docker-compose\>)
+  directories can be supplied, comma-separated). (Required: True)
+
 
 # Contribute
 
